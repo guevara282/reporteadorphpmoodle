@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .app-header {
+    background-color: #41b883; /* Color principal de Vue.js */
+    color: #fff; /* Texto en color blanco */
+    padding: 10px 0; /* Añade algún relleno para mejorar la apariencia */
+  }
+  .custom-button {
+    position: absolute; /* Posición absoluta para que sea independiente del flujo normal */
+    top: 15px; /* Ajusta la distancia desde la parte superior */
+    left: 5px; /* Ajusta la distancia desde el lado izquierdo */
+  }
+  .header-text {
+    text-align: right; /* Alinea el texto a la derecha */
+    margin-right: 0;
+  }
+
