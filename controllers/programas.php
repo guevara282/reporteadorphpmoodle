@@ -29,7 +29,9 @@ if (isset($_GET["iduser"]) && isset($_GET["idprogra"])) {
     } else {
         echo json_encode(["success" => 0]);
     }
+    mysqli_close($conexionBD);
 }
+/*
 //borrar pero se le debe de enviar una clave ( para borrado )
 if (isset($_GET["borrar"])) {
     $sqlreport = mysqli_query($conexionBD, "DELETE FROM empleados WHERE id=" . $_GET["borrar"]);
@@ -64,8 +66,9 @@ if (isset($_GET["actualizar"])) {
     $sqlreport = mysqli_query($conexionBD, "UPDATE empleados SET nombre='$nombre',correo='$correo' WHERE id='$id'");
     echo json_encode(["success" => 1]);
     exit();
-}
-// Consulta todos los registros de la tabla empleados
+}*/
+
+// Consulta todos los registros de la tabla programa
 if (isset($_GET["id"])) {
     $sqlreport = mysqli_query($conexionBD, "SELECT 
 DISTINCT report_programa.RPPRO_ID AS IDPROGRAMA,
@@ -82,11 +85,11 @@ AND report_programa.RPPRO_EST = 1
 AND report_permisos.RPP_EST = 1
 AND report_user.RPU_ID ="  . $_GET["id"] . " ORDER BY PROGRAMA ASC;");
 
-if (mysqli_num_rows($sqlreport) > 0) {
-    $empleaados = mysqli_fetch_all($sqlreport, MYSQLI_ASSOC);
-    echo json_encode($empleaados);
-} else {
-    echo json_encode([["success" => 0]]);
+    if (mysqli_num_rows($sqlreport) > 0) {
+        $empleaados = mysqli_fetch_all($sqlreport, MYSQLI_ASSOC);
+        echo json_encode($empleaados);
+    } else {
+        echo json_encode([["success" => 0]]);
+    }
+    mysqli_close($conexionBD);
 }
-}
-

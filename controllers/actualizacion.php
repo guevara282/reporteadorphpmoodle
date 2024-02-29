@@ -14,4 +14,5 @@ if (isset($_POST['idPrograma'])) {
 } else {
     echo "Error: IDPROGRAMA no especificado en la solicitud.";
 }
+
 ?>

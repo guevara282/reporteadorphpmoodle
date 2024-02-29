@@ -40,15 +40,21 @@ if ($CONDI == TRUE) {
     if ($data === null) {
         die('Error al decodificar la respuesta JSON');
     }
-    echo '<table class="table table-hover table-responsive">';
-    echo '<thead><tr><th>Reportes</th></tr></thead>';
+    echo '<table id="tablareport" class="table table-hover table-responsive display">';
+    echo '<thead><tr><th>Reportes</th><th>Descargas</th></tr></thead>';
     echo '<tbody>';
+    
     foreach ($data as $item) {
-        echo '<tr><td class="fs-2">' . $item['NCORTO'] . '</td></tr>';
-        // Reemplaza 'nombre_del_campo' con el nombre real de los campos en tu respuesta JSON
+        echo '<tr>';
+        echo '<td class="fs-2">' . $item['NCORTO'] . '</td>';
+        echo '<td><a href="./controllers/selector.php?id=' . $item['IDTREPORTE'] . '" class="btn btn-primary">Descargar</a></td>';
+        echo '</tr>';
+       
     }
+    
     echo '</tbody>';
     echo '</table>';
+     
 } elseif ($CONDI == FALSE) {
 
     echo "Seleccione un programa";
