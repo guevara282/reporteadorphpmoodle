@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 session_start();
 $idPrograma = $_SESSION["idprograma"];
 
-echo $idPrograma;
+//echo $idPrograma;
 $servidor = "172.16.31.125";
 $usuario = "di";
 $contrasenia = "4Dm1n321";
@@ -45,6 +45,7 @@ WHERE fr.name LIKE '%Foro Informativo%'
 ORDER BY cc.name, c.id asc;");
 
 if (!$sql) {
+    header("location: /reportphp/error.php");
     die('Error en la consulta SQL: ' . mysqli_error($conexionBD));
 }
 $resultados = array();

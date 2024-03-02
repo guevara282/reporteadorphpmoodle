@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 session_start();
 $idPrograma = $_SESSION["idprograma"];
 
-echo $idPrograma;
+//echo $idPrograma;
 $servidor = "172.16.31.125";
 $usuario = "di";
 $contrasenia = "4Dm1n321";
@@ -25,6 +25,7 @@ $sql = mysqli_query($conexionBD, "SELECT  ccp.name as programa, cc.name AS sem, 
 ");
 
 if (!$sql) {
+    header("location: /reportphp/error.php");
     die('Error en la consulta SQL: ' . mysqli_error($conexionBD));
 }
 $resultados = array();

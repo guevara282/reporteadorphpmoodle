@@ -40,10 +40,11 @@ if ($CONDI == TRUE) {
     if ($data === null) {
         die('Error al decodificar la respuesta JSON');
     }
+  
     echo '<table id="tablareport" class="table table-hover table-responsive display">';
-    echo '<thead><tr><th>Reportes</th><th>Descargas</th></tr></thead>';
+    echo '<thead><tr><th>Reportes '.$data[0]['PROGRAMA'].'</th><th>Descargas</th></tr></thead>';
     echo '<tbody>';
-    
+ 
     foreach ($data as $item) {
         echo '<tr>';
         echo '<td class="fs-2">' . $item['NCORTO'] . '</td>';
@@ -57,5 +58,5 @@ if ($CONDI == TRUE) {
      
 } elseif ($CONDI == FALSE) {
 
-    echo "Seleccione un programa";
+    echo "<h1>Seleccione un programa</h1>";
 }

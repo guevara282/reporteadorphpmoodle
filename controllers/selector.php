@@ -38,7 +38,7 @@ if (isset($_GET['id'])) {
             require_once "../generador/ForoInformativoProgramaExcel.php";
             break;
         default:
-
+            header("location: /reportphp/error.php");
             break;
     }
 }

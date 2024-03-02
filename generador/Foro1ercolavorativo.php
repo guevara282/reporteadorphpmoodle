@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 session_start();
 $idPrograma = $_SESSION["idprograma"];
 
-echo $idPrograma;
+//echo $idPrograma;
 $servidor = "172.16.31.125";
 $usuario = "di";
 $contrasenia = "4Dm1n321";
@@ -24,6 +24,7 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 $sql = mysqli_query($conexionBD, "SELECT  cc.name AS sem, c.fullname AS cur,  fr.name AS forum,  IFNULL(fd.name, '') AS discu,  IFNULL(FROM_UNIXTIME(fp.created), '') AS fechacreated, IFNULL(CONCAT_WS(' ', us.firstname,us.lastname), '') AS creador, (SELECT COUNT(*) FROM mdl_forum_posts AS fpx WHERE fpx.discussion = fd.id) AS replicas, (SELECT COUNT(*) FROM mdl_forum_posts AS fpx WHERE fpx.discussion = fd.id AND fpx.userid = fd.userid) AS replicasdoc, (SELECT COUNT(*) FROM mdl_forum_posts AS fpx WHERE fpx.discussion = fd.id  AND fpx.userid <> fd.userid) AS replicasest, IFNULL((SELECT FROM_UNIXTIME(MAX(fpx.created)) FROM mdl_forum_posts AS fpx WHERE fpx.discussion = fd.id  AND fpx.userid = fd.userid), '') AS datelastdoc, IFNULL((SELECT FROM_UNIXTIME(MAX(fpx.created)) FROM mdl_forum_posts AS fpx WHERE fpx.discussion = fd.id  AND fpx.userid <> fd.userid), '') AS datelastest FROM mdl_course_categories AS cc  INNER JOIN  mdl_course AS  c ON cc.id = c.category AND cc.parent =" . $idPrograma . " AND c.visible = 1 INNER JOIN  mdl_forum AS fr ON c.id = fr.course  LEFT JOIN mdl_forum_discussions AS fd  ON fr.id = fd.forum  LEFT JOIN mdl_forum_posts AS fp ON fd.firstpost = fp.id LEFT JOIN mdl_user AS us ON fd.userid = us.id where fr.name like '%Foro de discusiones 1er. Mto Aprendizaje Colaborativo%' ORDER BY cc.name, c.id asc;");
 
 if (!$sql) {
+    header("location: /reportphp/error.php");
     die('Error en la consulta SQL: ' . mysqli_error($conexionBD));
 }
 $resultados = array();

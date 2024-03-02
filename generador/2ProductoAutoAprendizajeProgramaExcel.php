@@ -13,7 +13,7 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 session_start();
 $idPrograma = $_SESSION["idprograma"];
 
-echo $idPrograma;
+//echo $idPrograma;
 $servidor = "172.16.31.125";
 $usuario = "di";
 $contrasenia = "4Dm1n321";
@@ -23,6 +23,7 @@ $conexionBD = new mysqli($servidor, $usuario, $contrasenia, $nombreBaseDatos);
 $sql = mysqli_query($conexionBD, "SELECT ccp.name as programa, cc.name AS sem, c.fullname AS cur,ma.name, FROM_UNIXTIME(ma.duedate) AS fechaentrega, case WHEN (FROM_UNIXTIME(ma.duedate) < CURRENT_DATE()) THEN 'Tarea vencida' else 'Tarea activa' end AS estado, countEnRolCourse(ma.course, 5) as participantes, (countEnRolCourse(ma.course, 5)-countSubmissionCourse(ma.course, ma.name))  as noenviado, countSubmissionCourse(ma.course , ma.name) as enviados, countNotNoteCourse(ma.course, ma.name) as porcalificar,  countNotePassCourse(ma.course, ma.name) as aprobados, countNoteNotPassCourse(ma.course, ma.name) as noaprobados, avgNoteCourse(ma.course, ma.name) as promedio,urlActivity(ma.course, ma.name) as url, nombresDocenteCurso(ma.course) as docente from mdl_course_categories as ccp inner join mdl_course_categories as cc on ccp.id = cc.parent inner join mdl_course as c ON cc.id = c.category AND cc.parent in(" . $idPrograma . ") AND c.summary <> 'TIF' inner join mdl_assign ma on c.id = ma.course and ma.name like '%2da. Evidencia de aprendizaje autónomo' and c.visible =1 ORDER BY cc.name, c.id asc;");
 
 if (!$sql) {
+    header("location: /reportphp/error.php");
     die('Error en la consulta SQL: ' . mysqli_error($conexionBD));
 }
 $resultados = array();

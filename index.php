@@ -1,11 +1,15 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    // Inicia la sesión si no está iniciada
+    session_start();
+}
 
-if (!isset($_SESSION)) {
+if (!isset($_SESSION['iduser'])) {
     // Redirigir a la página de inicio de sesión
-    echo 'no encontrada';
+    header("location: /reportphp/logout.php");
     exit();
 }
+
 require_once "./config/conexion.php";
 require_once "./config/app.php";
 require_once "./autoload.php";

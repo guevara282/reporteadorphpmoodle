@@ -2,7 +2,7 @@
 // Verifica si se ha enviado el IDPROGRAMA
 if (isset($_POST['idPrograma'])) {
     $idPrograma = $_POST['idPrograma'];
-
+     
     // Realiza las acciones necesarias con el IDPROGRAMA, por ejemplo, cambiar una variable de sesión
     session_start();
     $_SESSION['idprograma'] = $idPrograma;
